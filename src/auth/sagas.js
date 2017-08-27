@@ -36,8 +36,13 @@ function * syncUserSaga () {
   const channel = yield call(rsf.auth.channel)
   while (true) {
     const {error, user} = yield take(channel)
-    if (user) yield put(syncUser(user))
-    else yield put(syncUser(null))
+    if (user) {
+      localStorage.setItem('uid', user.uid)
+      yield put(syncUser(user))
+    }
+    else {
+      yield put(syncUser(null))
+    }
   }
 }
 

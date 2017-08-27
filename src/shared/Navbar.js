@@ -56,7 +56,7 @@ Navbar.defaultProps = {};
 
 function mapStateToProps (state) {
   return {
-    loggedIn: state.login.loggedIn,
+    loggedIn: state.auth.loggedIn,
     displayName: getDisplayName(state),
   }
 }

@@ -9,6 +9,6 @@ const config = {
   storageBucket: 'facebook-event-aggregator.appspot.com',
   messagingSenderId: '863570320235',
 }
-const firebaseApp = firebase.initializeApp(config)
+export const firebaseApp = firebase.initializeApp(config)
 const reduxSagaFirebase = new ReduxSagaFirebase(firebaseApp)
 export default reduxSagaFirebase

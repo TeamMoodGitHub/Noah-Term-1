@@ -2,42 +2,36 @@ import React, { Component } from 'react'
 import {
   Grid,
   Row,
-  FormControl,
-  FormGroup,
-  ControlLabel,
-  Button,
   ListGroup,
   ListGroupItem,
   Col,
 } from 'react-bootstrap'
-import { reduxForm, Field } from 'redux-form'
-import PropTypes from 'prop-types'
+
 import { connect } from 'react-redux'
+import AddPageForm from './components/AddPageForm'
+import { addPage } from './actions'
 
 class Events extends Component {
+
+  submit = values => {
+    this.props.addPage()
+  }
+
   render () {
     const {handleSubmit, pages} = this.props
     return (
       <Grid>
         <Row>
           <Col md={12}>
-            <form onSubmit={handleSubmit}>
-              <FormGroup>
-                <ControlLabel>Add page to subscribe to</ControlLabel>
-                {/*TODO: Add capability to search for page to add to subscription list. For now will just use page ids for MVP*/}
-                <Field component={FormControl} type="text"
-                       placeholder="Enter page id"/>
-              </FormGroup>
-              <Button bsStyle="primary" type="submit">Add Page</Button>
-            </form>
+            <AddPageForm onSubmit={this.submit}/>
           </Col>
         </Row>
         <Row>
           <Col md={12}>
             <h5>Subscribed Pages</h5>
             <ListGroup>
-              {pages.map(page => (
-                <ListGroupItem>{page}</ListGroupItem>
+              {pages && pages.map(page => (
+                <ListGroupItem key={page.id}>{page.pageName}</ListGroupItem>
               ))}
             </ListGroup>
           </Col>
@@ -56,7 +50,5 @@ function mapStateToProps (state) {
   }
 }
 
-const formedComponent = reduxForm('addPage')(Events)
-const connectedComponent = connect(mapStateToProps, null)(formedComponent)
+export default connect(mapStateToProps, {addPage})(Events)
 
-export default connectedComponent
