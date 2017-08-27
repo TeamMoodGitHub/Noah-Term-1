@@ -4,7 +4,7 @@ const axios = require('axios')
 firebase.initializeApp(functions.config().firebase)
 
 exports.getFacebookPageEvents = functions.https.onRequest((req, res) => {
-  let accessToken = functions.config().facebook.access_token
+  let accessToken = '1902171126772893|Uro9wCu-luLA5aRJAlkjL3mMfjY'
   const {pages, uid} = req.body
   const requests = pages.map(pageId => {
     return axios.get(

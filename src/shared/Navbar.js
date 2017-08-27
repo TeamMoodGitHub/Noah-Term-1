@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom'
+import './Navbar.css'
+import { Link, NavLink } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { getDisplayName } from '../auth/selectors'
+import { logout, login } from '../auth/actions'
 
-function Navbar(props) {
+function Navbar ({loggedIn, displayName, logout, login}) {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <NavLink to="/" activeClassName="active" className="navbar-brand">Event
@@ -26,15 +30,22 @@ function Navbar(props) {
               Events</NavLink>
           </li>
         </ul>
+        {!loggedIn &&
         <ul className="navbar-nav">
           <li className="nav-item">
-            <NavLink to="/login" activeClassName="active" className="nav-link">Login</NavLink>
+            <a onClick={login} className="nav-link">Login with Facebook</a>
+          </li>
+        </ul>}
+        {loggedIn &&
+        <ul className="navbar-nav">
+          <li className="nav-item">
+            <Link to="#" className="nav-link">Hi, {displayName}</Link>
           </li>
           <li className="nav-item">
-            <NavLink to="/signup" activeClassName="active" className="nav-link">Sign
-              Up</NavLink>
+            <a onClick={logout} className="nav-link">Logout</a>
           </li>
         </ul>
+        }
       </div>
     </nav>
   );
@@ -43,4 +54,11 @@ function Navbar(props) {
 Navbar.propTypes = {};
 Navbar.defaultProps = {};
 
-export default Navbar;
+function mapStateToProps (state) {
+  return {
+    loggedIn: state.login.loggedIn,
+    displayName: getDisplayName(state),
+  }
+}
+
+export default connect(mapStateToProps, {logout, login})(Navbar)
