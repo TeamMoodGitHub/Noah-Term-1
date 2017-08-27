@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom'
 
 function Navbar(props) {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a href="/" className="navbar-brand">Event Aggregator</a>
+      <NavLink to="/" activeClassName="active" className="navbar-brand">Event
+        Aggregator</NavLink>
       <button
         className="navbar-toggler"
         type="button"
@@ -20,18 +22,17 @@ function Navbar(props) {
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
-            <a href="/" className="nav-link">My Events</a>
-          </li>
-          <li className="nav-item">
-            <a href="/" className="nav-link">About</a>
+            <NavLink to="/events" activeClassName="active" className="nav-link">My
+              Events</NavLink>
           </li>
         </ul>
         <ul className="navbar-nav">
           <li className="nav-item">
-            <a href="/" className="nav-link">Login</a>
+            <NavLink to="/login" activeClassName="active" className="nav-link">Login</NavLink>
           </li>
           <li className="nav-item">
-            <a href="/" className="nav-link">Sign Up</a>
+            <NavLink to="/signup" activeClassName="active" className="nav-link">Sign
+              Up</NavLink>
           </li>
         </ul>
       </div>
