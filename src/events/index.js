@@ -10,6 +10,7 @@ import {
 import { connect } from 'react-redux'
 import AddPageForm from './components/AddPageForm'
 import { addPage } from './actions'
+import EventList from './components/EventList'
 
 class Events extends Component {
 
@@ -18,7 +19,7 @@ class Events extends Component {
   }
 
   render () {
-    const {handleSubmit, pages} = this.props
+    const {handleSubmit, pages, events} = this.props
     return (
       <Grid>
         <Row>
@@ -36,6 +37,12 @@ class Events extends Component {
             </ListGroup>
           </Col>
         </Row>
+        <Row>
+          <Col md={12}>
+            <h5>Page Events</h5>
+            {events && <EventList events={events}/>}
+          </Col>
+        </Row>
       </Grid>
     )
   }
@@ -47,6 +54,7 @@ Events.defaultProps = {}
 function mapStateToProps (state) {
   return {
     pages: state.events.pages,
+    events: state.events.eventsList,
   }
 }
 

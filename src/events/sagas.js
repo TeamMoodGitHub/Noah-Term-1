@@ -8,7 +8,7 @@ import {
   all,
 } from 'redux-saga/effects'
 import rsf from '../firebase'
-import { types, syncPages } from './actions'
+import { types, syncPages, syncEvents } from './actions'
 
 function * addPage () {
   const newPage = yield select(state => state.form.addPage.values.newPage)
@@ -29,11 +29,15 @@ export default function * rootSaga () {
     }))
     : []
 
+  const eventsTransformer = events => events ? Object.values(events)[0] : []
+
 
 
   yield all([
     rsf.database.sync(`pages/${localStorage.getItem('uid')}`, syncPages,
       pagesTransformer),
+    rsf.database.sync(`events/${localStorage.getItem('uid')}`, syncEvents,
+      eventsTransformer),
     takeEvery(types.PAGES.ADD, addPage),
   ])
 }

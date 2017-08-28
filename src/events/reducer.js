@@ -1,7 +1,7 @@
 import { types } from './actions'
 
 const initialState = {
-  events: [],
+  eventsList: [],
   pages: [],
 }
 
@@ -11,6 +11,11 @@ export default function eventsReducer (state = initialState, action) {
       return {
         ...state,
         pages: action.pages,
+      }
+    case types.EVENTS.SYNC:
+      return {
+        ...state,
+        eventsList: action.events,
       }
     default:
       return state
