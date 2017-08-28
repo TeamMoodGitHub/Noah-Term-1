@@ -14,7 +14,7 @@ class App extends Component {
       <div>
         <Navbar/>
         Hi
-        <div className="container">
+        <div className="container-fluid">
           <Switch>
             <Route path="/events" component={Events}/>
             <Route path="/signup" component={Signup}/>
