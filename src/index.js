@@ -6,7 +6,7 @@ import { Provider } from 'react-redux'
 import createHistory from 'history/createBrowserHistory'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import App from 'App';
+import App from './App'
 import registerServiceWorker from './registerServiceWorker';
 import store from './store'
 

@@ -29,15 +29,12 @@ export default function * rootSaga () {
     }))
     : []
 
-  const eventsTransformer = events => events ? Object.values(events)[0] : []
-
 
 
   yield all([
     rsf.database.sync(`pages/${localStorage.getItem('uid')}`, syncPages,
       pagesTransformer),
-    rsf.database.sync(`events/${localStorage.getItem('uid')}`, syncEvents,
-      eventsTransformer),
+    rsf.database.sync(`events/${localStorage.getItem('uid')}`, syncEvents),
     takeEvery(types.PAGES.ADD, addPage),
   ])
 }

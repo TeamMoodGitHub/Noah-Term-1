@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import 'App.css';
-import logo from './logo.svg';
+import './App.css'
 import Navbar from './shared/Navbar';
 import { Route, Switch } from 'react-router-dom'
 import Events from './events/index'
