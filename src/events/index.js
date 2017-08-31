@@ -4,27 +4,27 @@ import {
   Row,
   ListGroup,
   ListGroupItem,
-  Col,
+  Col, Button,
 } from 'react-bootstrap'
 
 import { connect } from 'react-redux'
 import AddPageForm from './components/AddPageForm'
-import { addPage } from './actions'
+import { addPage, removePage } from './actions'
 import EventList from './components/EventList'
 
 class Events extends Component {
 
-  submit = values => {
-    this.props.addPage()
+  onRemovePage = pageId => {
+    this.props.removePage(pageId)
   }
 
   render () {
-    const {handleSubmit, pages, events} = this.props
+    const {pages, events} = this.props
     return (
       <Grid>
         <Row>
           <Col md={12}>
-            <AddPageForm onSubmit={this.submit}/>
+            <AddPageForm/>
           </Col>
         </Row>
         <Row>
@@ -32,7 +32,13 @@ class Events extends Component {
             <h5>Subscribed Pages</h5>
             <ListGroup>
               {pages && pages.map(page => (
-                <ListGroupItem key={page.id}>{page.pageName}</ListGroupItem>
+                <ListGroupItem key={page.id}>
+                  {page.pageName}
+                  <span className="float-md-right">
+                    <Button onClick={() => this.onRemovePage(page.id)}
+                            bsStyle="danger">Remove</Button>
+                  </span>
+                </ListGroupItem>
               ))}
             </ListGroup>
           </Col>
@@ -58,5 +64,5 @@ function mapStateToProps (state) {
   }
 }
 
-export default connect(mapStateToProps, {addPage})(Events)
+export default connect(mapStateToProps, {removePage})(Events)
 
