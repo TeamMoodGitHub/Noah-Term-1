@@ -1,0 +1,6 @@
+[submodule "get-fb-events-microservice"]
+	path = get-fb-events-microservice
+	url = https://github.com/slokomisu/Get-FB-Events-Microservice
+[submodule "school-page-relation-service"]
+	path = school-page-relation-service
+	url = https://github.com/slokomisu/School-Page-Relation-Service
