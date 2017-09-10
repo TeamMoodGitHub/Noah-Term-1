@@ -4,6 +4,8 @@ import { AsyncTypeahead } from 'react-bootstrap-typeahead'
 import { Button } from 'react-bootstrap'
 import { Field, reduxForm } from 'redux-form'
 import axios from 'axios'
+import { addSchool } from '../actions'
+import { connect } from 'react-redux'
 
 class GetSchoolForm extends Component {
   constructor (props) {
@@ -11,7 +13,7 @@ class GetSchoolForm extends Component {
 
     this.state = {
       options: [],
-    }
+    };
   }
 
   renderTypeahead = ({input, label, ...custom}) => {
@@ -24,12 +26,15 @@ class GetSchoolForm extends Component {
         {...input}
         {...custom}
       />
-    )
-  }
+    );
+  };
 
   submit = values => {
-
-  }
+    const school = this.state.options.find(
+      school => school['school.name'] === values.schoolName)
+    console.log(school)
+    this.props.addSchool(school)
+  };
 
   render () {
     const {handleSubmit} = this.props
@@ -37,10 +42,12 @@ class GetSchoolForm extends Component {
       <div>
         <form onSubmit={handleSubmit(this.submit)}>
           <Field name="schoolName" component={this.renderTypeahead}/>
-          <Button bsStyle="primary" type="submit">Submit</Button>
+          <Button bsStyle="primary" type="submit">
+            Submit
+          </Button>
         </form>
       </div>
-    )
+    );
   }
 
   handleSearch = async query => {
@@ -50,16 +57,21 @@ class GetSchoolForm extends Component {
 
     const response = await axios.get(
       `http://api.data.gov/ed/collegescorecard/v1/schools?school.name=${encodeURIComponent(
-        query)}&api_key=ewY0BEivFqkmrKrnBQ7McgU685yx2SmLJON4tbFq&_fields=id,school.name,school.alias`)
+        query,
+      )}&api_key=ewY0BEivFqkmrKrnBQ7McgU685yx2SmLJON4tbFq&_fields=id,school.name,school.alias`
+    );
     const data = response.data
     this.setState({options: data.results})
-
-  }
+  };
 }
 
 GetSchoolForm.propTypes = {}
 GetSchoolForm.defaultProps = {}
 
-export default reduxForm({
+const formedComponent = reduxForm({
   form: 'addSchool',
 })(GetSchoolForm)
+
+const connectedComponent = connect(null, {addSchool})(formedComponent)
+
+export default connectedComponent

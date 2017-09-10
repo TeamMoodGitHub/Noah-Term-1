@@ -10,6 +10,10 @@ export const types = {
     FAILURE: 'LOGOUT.FAILURE',
   },
   SYNC_USER: 'SYNC_USER',
+  USER: {
+    INFO: 'USER.INFO',
+    INFO_SUCCESS: 'USER.INFO_SUCCESS',
+  },
 };
 
 export const login = () => ({
@@ -43,3 +47,13 @@ export const syncUser = user => ({
   type: types.SYNC_USER,
   user,
 });
+
+export const getUserInfo = uid => ({
+  type: types.USER.INFO,
+  uid,
+})
+
+export const gotUserInfo = userInfo => ({
+  type: types.USER.INFO_SUCCESS,
+  userInfo,
+})

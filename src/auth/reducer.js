@@ -4,6 +4,7 @@ const initialState = {
   loading: false,
   loggedIn: false,
   user: null,
+  otherUserInfo: null,
 };
 
 export default function authReducer (state = initialState, action) {
@@ -42,6 +43,11 @@ export default function authReducer (state = initialState, action) {
         loggedIn: action.user !== null,
         user: action.user,
       };
+    case types.USER.INFO_SUCCESS:
+      return {
+        ...state,
+        otherUserInfo: action.userInfo,
+      }
     default:
       return state
   }

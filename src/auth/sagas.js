@@ -7,8 +7,8 @@ import {
   loginFailure,
   logoutSuccess,
   logoutFailure,
-  syncUser,
-} from './actions';
+  syncUser, getUserInfo, gotUserInfo,
+} from './actions'
 
 import rsf from '../firebase'
 import { syncEvents, syncPages } from '../events/actions'
@@ -40,13 +40,23 @@ function * logoutSaga () {
 function * syncUserSaga () {
   const channel = yield call(rsf.auth.channel)
   while (true) {
-    const {user} = yield take(channel)
+    let {user} = yield take(channel)
     if (user) {
       localStorage.setItem('uid', user.uid)
       yield put(syncUser(user))
+      yield put(getUserInfo(user.uid))
     } else {
       yield put(syncUser(null))
     }
+  }
+}
+
+function * getUserInfoSaga ({uid}) {
+  try {
+    const userInfo = yield call(rsf.database.read, `/users/${uid}`)
+    yield put(gotUserInfo(userInfo))
+  } catch (error) {
+    console.log(error)
   }
 }
 
@@ -55,5 +65,6 @@ export default function * loginRootSaga () {
   yield all([
     takeEvery(types.LOGIN.REQUEST, loginSaga),
     takeEvery(types.LOGOUT.REQUEST, logoutSaga),
+    takeEvery(types.USER.INFO, getUserInfoSaga),
   ]);
 }

@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { Grid, Row, Col } from 'react-bootstrap'
+import { connect } from 'react-redux'
 import GetSchoolForm from './components/GetSchoolForm'
 
 class School extends Component {
   render () {
+    const {schoolName, schoolAlias, schoolPages, loading} = this.props
     return (
       <Grid>
         <Row>
@@ -18,7 +20,7 @@ class School extends Component {
         </Row>
         <Row>
           <Col md={12}>
-
+            <h3>Your School: </h3>
           </Col>
         </Row>
       </Grid>
@@ -29,4 +31,13 @@ class School extends Component {
 School.propTypes = {}
 School.defaultProps = {}
 
-export default School
+function mapStateToProps (state) {
+  return {
+    schoolName: state.school.schoolName,
+    schoolAlias: state.school.schoolAlias,
+    schoolPages: state.school.schoolPages,
+    loading: state.school.loading,
+  }
+}
+
+export default connect(mapStateToProps)(School)
