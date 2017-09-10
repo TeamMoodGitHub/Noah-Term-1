@@ -18,7 +18,7 @@ const WrappedApp = () => (
       <Route path="/" component={App}/>
     </Router>
   </Provider>
-)
+);
 
 ReactDOM.render(<WrappedApp/>, document.getElementById('root'))
 registerServiceWorker();

@@ -8,6 +8,6 @@ export const firebaseApp = firebase.initializeApp({
   projectId: 'facebook-event-aggregator',
   storageBucket: 'facebook-event-aggregator.appspot.com',
   messagingSenderId: '863570320235',
-})
+});
 const reduxSagaFirebase = new ReduxSagaFirebase(firebaseApp)
 export default reduxSagaFirebase

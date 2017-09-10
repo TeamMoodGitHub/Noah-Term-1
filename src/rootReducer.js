@@ -8,4 +8,4 @@ export default combineReducers({
   auth,
   events,
   form: formReducer,
-})
+});

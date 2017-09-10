@@ -6,8 +6,7 @@ import { connect } from 'react-redux'
 import { addPage } from '../actions'
 
 class AddPageForm extends Component {
-
-  submit = (values) => {
+  submit = values => {
     const {reset} = this.props
     this.props.addPage()
     reset()
@@ -23,9 +22,11 @@ class AddPageForm extends Component {
           <Field name="newPage" component={FieldInput} type="text"
                  placeholder="Enter page id"/>
         </FormGroup>
-        <Button bsStyle="primary" type="submit">Add Page</Button>
+        <Button bsStyle="primary" type="submit">
+          Add Page
+        </Button>
       </form>
-    )
+    );
   }
 }
 
